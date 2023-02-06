@@ -24,7 +24,7 @@ body {
 	align-items: center;
 	gap: 5rem;
 	margin-top: 3rem;
-	padding: 12px 64px;
+	padding: 12px 64px 19px 64px;
 	overflow-x: auto;
 	position: relative;
 }
