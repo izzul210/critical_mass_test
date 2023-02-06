@@ -6,7 +6,7 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Sliding Navigation Taba</title>
+		<title>Sliding Navigation Tabs</title>
 		<link rel="stylesheet" href="style.css" />
 	</head>
 	<body>
@@ -23,6 +23,8 @@
 				.then((result) => {
 					result.cities.forEach((city, index) => {
 						createTabElement(city, index);
+
+						//Include slidng bar and click func at the end
 						if (index === result.cities.length - 1) {
 							addSlidingBar();
 							addClickFunc();
@@ -52,13 +54,16 @@
 			}
 
 			function addSlidingBar() {
+				//Create active tab moving slider
 				const activeTabLine = document.createElement('div');
 				activeTabLine.classList.add('active-tab-line');
 
+				//Initialize active tab styling based on active tab
 				const activeTab = document.querySelector('.active');
 				activeTabLine.style.width = activeTab.offsetWidth + 'px';
 				activeTabLine.style.left = activeTab.offsetLeft + 'px';
 
+				//Create a tab line
 				const tabLine = document.createElement('div');
 				tabLine.classList.add('tab-line');
 				tabLine.style.width = tabSection.offsetWidth + 'px';
@@ -74,6 +79,7 @@
 						const cityTag = tab.className.split(' ')[1];
 						const cityName = tab.textContent;
 						displayTime(cityTag, cityName);
+
 						tabs.forEach((tab) => {
 							tab.classList.remove('active');
 						});
@@ -87,7 +93,9 @@
 			}
 
 			function displayTime(city, cityName) {
+				//Cleaning up cityTime content
 				cityTime.innerHTML = '';
+				//Add loading while waiting for response
 				const loadingContent = document.createTextNode('Loading....');
 				cityTime.appendChild(loadingContent);
 
@@ -96,19 +104,20 @@
 				)
 					.then((response) => response.json())
 					.then((res) => {
-						console.log(res);
+						//Reset cityTime content
 						cityTime.innerHTML = '';
-
+						//Create h3 element for city name, country
 						const h3Element = document.createElement('h3');
 						const h3Content = document.createTextNode(`${cityName}, ${res.geo.country}`);
 						h3Element.appendChild(h3Content);
-
+						//Create content for date and time
 						const divContent = document.createTextNode(res.date_time_txt);
-
+						//Crate h2 element for time in 12-hr format
 						const h2Element = document.createElement('h2');
 						const h2Content = document.createTextNode(`${res.time_12}`);
 						h2Element.appendChild(h2Content);
 
+						//Include the child into cityTime div
 						cityTime.appendChild(h3Element);
 						cityTime.appendChild(divContent);
 						cityTime.appendChild(h2Element);
