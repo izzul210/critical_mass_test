@@ -71,3 +71,11 @@ body {
 	padding: 30px;
 	text-align: center;
 }
+
+.city-time h3 {
+	margin-bottom: 12px;
+}
+
+.city-time h2 {
+	margin-top: 12px;
+}

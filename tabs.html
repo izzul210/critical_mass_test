@@ -44,7 +44,7 @@
 				//Initalize active tab
 				if (index === 0) {
 					newDiv.classList.add('active');
-					displayTime(nav.section);
+					displayTime(nav.section, nav.label);
 				}
 
 				//Add the div inside tab_section class
@@ -72,7 +72,8 @@
 				tabs.forEach((tab, index) => {
 					tab.addEventListener('click', (e) => {
 						const cityTag = tab.className.split(' ')[1];
-						displayTime(cityTag);
+						const cityName = tab.textContent;
+						displayTime(cityTag, cityName);
 						tabs.forEach((tab) => {
 							tab.classList.remove('active');
 						});
@@ -85,7 +86,7 @@
 				});
 			}
 
-			function displayTime(city) {
+			function displayTime(city, cityName) {
 				cityTime.innerHTML = '';
 				const loadingContent = document.createTextNode('Loading....');
 				cityTime.appendChild(loadingContent);
@@ -99,13 +100,18 @@
 						cityTime.innerHTML = '';
 
 						const h3Element = document.createElement('h3');
-						const h3Content = document.createTextNode(res.timezone);
+						const h3Content = document.createTextNode(`${cityName}, ${res.geo.country}`);
 						h3Element.appendChild(h3Content);
 
 						const divContent = document.createTextNode(res.date_time_txt);
 
+						const h2Element = document.createElement('h2');
+						const h2Content = document.createTextNode(`${res.time_12}`);
+						h2Element.appendChild(h2Content);
+
 						cityTime.appendChild(h3Element);
 						cityTime.appendChild(divContent);
+						cityTime.appendChild(h2Element);
 					});
 			}
 		</script>
